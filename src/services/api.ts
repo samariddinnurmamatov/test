@@ -7,13 +7,13 @@ export const getPosts = async (limit?: number) => {
   return res.json();
 };
 
-export const getPost = async (id: string) => {
+export const getPost = async (id: number) => {
   const res = await fetch(`${API_URL}/posts/${id}`, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to fetch post");
   return res.json();
 };
 
-export const getPostComments = async (id: string) => {
+export const getPostComments = async (id: number) => {
   const res = await fetch(`${API_URL}/posts/${id}/comments`, {
     cache: "no-store",
   });
@@ -21,7 +21,7 @@ export const getPostComments = async (id: string) => {
   return res.json();
 };
 
-export const getCommentsByPost = async (postId: string) => {
+export const getCommentsByPost = async (postId: number) => {
   const res = await fetch(`${API_URL}/comments?postId=${postId}`, {
     cache: "no-store",
   });

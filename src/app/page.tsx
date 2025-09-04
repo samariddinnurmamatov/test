@@ -1,13 +1,18 @@
 import { getPosts } from "@/services/api";
 import Link from "next/link";
 
+export interface Post {
+  id: number;
+  title: string;
+  body: string;
+}
 
 export default async function Home() {
   const posts = await getPosts(10);
 
   return (
     <div className="grid grid-cols-3 p-10 gap-4">
-      {posts.map((post: any) => (
+      {posts.map((post: Post) => (
         <Link
           key={post.id}
           href={`/post/${post.id}`}

@@ -1,13 +1,27 @@
 import { getPost, getPostComments } from "@/services/api";
 
-
-interface Props {
-  params: { id: string };
+export interface Comment {
+  id: number;
+  postId: number;
+  name: string;
+  email: string;
+  body: string;
 }
 
-export default async function PostPage({ params }: Props) {
-  const post = await getPost(params.id);
-  const comments = await getPostComments(params.id);
+interface Post {
+  id: number;
+  title: string;
+  body: string;
+}
+
+
+export default async function PostPage({ params }: any) {
+  const postId = parseInt(params.id, 10);
+
+  console.log(params.id);
+
+  const post: Post = await getPost(postId);
+  const comments: Comment[] = await getPostComments(postId);
 
   return (
     <div className="p-10 max-w-2xl mx-auto">
@@ -16,7 +30,7 @@ export default async function PostPage({ params }: Props) {
 
       <h2 className="text-xl font-semibold mb-2">Comments</h2>
       <ul className="space-y-3">
-        {comments.map((c: any) => (
+        {comments.map((c) => (
           <li key={c.id} className="border p-3 rounded">
             <p className="font-medium">{c.name}</p>
             <p className="text-gray-600">{c.body}</p>
